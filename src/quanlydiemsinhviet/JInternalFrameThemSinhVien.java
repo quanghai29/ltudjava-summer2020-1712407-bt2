@@ -5,6 +5,11 @@
  */
 package quanlydiemsinhviet;
 
+import dao.SinhVienDAO;
+import java.util.List;
+import javax.swing.JOptionPane;
+import pojos.*;
+
 /**
  *
  * @author DELL
@@ -17,6 +22,7 @@ public class JInternalFrameThemSinhVien extends javax.swing.JInternalFrame {
     public JInternalFrameThemSinhVien() {
         initComponents();
         setLocation(200, 30);
+        loadDSLop();
     }
 
     /**
@@ -37,9 +43,9 @@ public class JInternalFrameThemSinhVien extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         jTextFieldCMND = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextFieldLop = new javax.swing.JTextField();
         jComboBoxGioiTinh = new javax.swing.JComboBox<>();
         jButtonThemSV = new javax.swing.JButton();
+        jComboBoxLop = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setPreferredSize(new java.awt.Dimension(900, 600));
@@ -48,36 +54,26 @@ public class JInternalFrameThemSinhVien extends javax.swing.JInternalFrame {
 
         jLabel2.setText("MSSV");
 
-        jTextFieldMSSV.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldMSSVActionPerformed(evt);
-            }
-        });
-
         jLabel3.setText("Họ Tên");
-
-        jTextFieldHoTen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldHoTenActionPerformed(evt);
-            }
-        });
 
         jLabel4.setText("Giới Tính");
 
         jLabel5.setText("CMND");
-
-        jTextFieldCMND.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldCMNDActionPerformed(evt);
-            }
-        });
 
         jLabel6.setText("Lớp");
 
         jComboBoxGioiTinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {"Nam", "Nữ"}));
 
         jButtonThemSV.setForeground(new java.awt.Color(0, 0, 0));
-        jButtonThemSV.setText("Thêm");
+        jButtonThemSV.setText("OK");
+        jButtonThemSV.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
+        jButtonThemSV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonThemSVActionPerformed(evt);
+            }
+        });
+
+        jComboBoxLop.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -99,19 +95,15 @@ public class JInternalFrameThemSinhVien extends javax.swing.JInternalFrame {
                             .addComponent(jLabel4)
                             .addComponent(jLabel5)
                             .addComponent(jLabel6))
+                        .addGap(19, 19, 19)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldCMND, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButtonThemSV)
-                                .addGap(0, 269, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(19, 19, 19)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextFieldCMND, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jComboBoxGioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(jTextFieldLop))))))
+                                    .addComponent(jComboBoxGioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jComboBoxLop, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButtonThemSV, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 248, Short.MAX_VALUE)))))
                 .addContainerGap(130, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -133,13 +125,13 @@ public class JInternalFrameThemSinhVien extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jTextFieldCMND, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(45, 45, 45)
+                .addGap(50, 50, 50)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextFieldLop, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                    .addComponent(jComboBoxLop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                 .addComponent(jButtonThemSV, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(58, 58, 58))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -149,7 +141,7 @@ public class JInternalFrameThemSinhVien extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(304, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,22 +154,32 @@ public class JInternalFrameThemSinhVien extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextFieldHoTenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldHoTenActionPerformed
+    private void jButtonThemSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonThemSVActionPerformed
         // TODO add your handling code here:
+        Sinhvien sv = new Sinhvien();
+        sv.setMssv(jTextFieldMSSV.getText());
+        sv.setHoten(jTextFieldHoTen.getText());
+        sv.setGioitinh(jComboBoxGioiTinh.getSelectedItem().toString());
+        sv.setCmnd(jTextFieldCMND.getText());
+        sv.setLop(jComboBoxLop.getSelectedItem().toString());
 
-    }//GEN-LAST:event_jTextFieldHoTenActionPerformed
+        boolean kq = SinhVienDAO.themSinhVien(sv);
+        if (kq) {
+            JOptionPane.showMessageDialog(null, "Thêm Thành Công");
+        } else {
+            JOptionPane.showMessageDialog(null, "Thêm thất bại");
+        }
+    }//GEN-LAST:event_jButtonThemSVActionPerformed
 
-    private void jTextFieldCMNDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCMNDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldCMNDActionPerformed
-
-    private void jTextFieldMSSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldMSSVActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldMSSVActionPerformed
-
+    private void loadDSLop() {
+        List<String> dsLop;
+        dsLop = SinhVienDAO.getLop();
+        jComboBoxLop.setModel(new javax.swing.DefaultComboBoxModel<>(dsLop.toArray(new String[0])));
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonThemSV;
     private javax.swing.JComboBox<String> jComboBoxGioiTinh;
+    private javax.swing.JComboBox<String> jComboBoxLop;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -186,7 +188,6 @@ public class JInternalFrameThemSinhVien extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextFieldCMND;
     private javax.swing.JTextField jTextFieldHoTen;
-    private javax.swing.JTextField jTextFieldLop;
     private javax.swing.JTextField jTextFieldMSSV;
     // End of variables declaration//GEN-END:variables
 }

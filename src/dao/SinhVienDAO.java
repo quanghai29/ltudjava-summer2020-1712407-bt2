@@ -74,4 +74,20 @@ public class SinhVienDAO {
             themSinhVien(ds.get(i));
         }
     }
+
+    public static List<String> getLop() {
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        List<String> dsLop = null;
+        Transaction transaction = null;
+        try {
+            String hql = "select distinct lop from Sinhvien sv";
+            Query query = session.createQuery(hql);
+            dsLop = query.list();
+        } catch (HibernateException ex) {
+            System.out.println(ex);
+        } finally {
+            session.close();
+        }
+        return dsLop;
+    }
 }
