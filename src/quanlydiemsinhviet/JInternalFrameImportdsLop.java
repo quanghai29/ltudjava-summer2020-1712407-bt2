@@ -138,7 +138,6 @@ public class JInternalFrameImportdsLop extends javax.swing.JInternalFrame {
             //List<Sinhvien> ds = null;
             dsSV = myCSVFile.importDSLop(fileChooser);
             loadDataTable(dsSV);
-
         }
     }//GEN-LAST:event_jButtonOpenFIleActionPerformed
 

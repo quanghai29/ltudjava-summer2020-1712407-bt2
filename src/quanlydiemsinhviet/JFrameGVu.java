@@ -35,6 +35,7 @@ public class JFrameGVu extends javax.swing.JFrame {
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         jMenuItemDSlop = new javax.swing.JMenuItem();
+        jMenuItemImportTKB = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItemThemSV = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
@@ -69,6 +70,14 @@ public class JFrameGVu extends javax.swing.JFrame {
             }
         });
         jMenu3.add(jMenuItemDSlop);
+
+        jMenuItemImportTKB.setText("Thời Khóa Biểu");
+        jMenuItemImportTKB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemImportTKBActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItemImportTKB);
 
         jMenuBar2.add(jMenu3);
 
@@ -108,6 +117,13 @@ public class JFrameGVu extends javax.swing.JFrame {
         TSV.setVisible(true);
         this.jDesktopPane1.add(TSV);
     }//GEN-LAST:event_jMenuItemThemSVActionPerformed
+
+    private void jMenuItemImportTKBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemImportTKBActionPerformed
+        // TODO add your handling code here:
+        JInternalFrameImportTKB TKB = new JInternalFrameImportTKB();
+        TKB.setVisible(true);
+        this.jDesktopPane1.add(TKB);
+    }//GEN-LAST:event_jMenuItemImportTKBActionPerformed
 
     /**
      * @param args the command line arguments
@@ -152,6 +168,7 @@ public class JFrameGVu extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItemDSlop;
+    private javax.swing.JMenuItem jMenuItemImportTKB;
     private javax.swing.JMenuItem jMenuItemThemSV;
     // End of variables declaration//GEN-END:variables
 }
