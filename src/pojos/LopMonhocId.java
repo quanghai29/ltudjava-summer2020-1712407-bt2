@@ -1,5 +1,5 @@
 package pojos;
-// Generated 04-Jun-2020 11:08:46 by Hibernate Tools 4.3.1
+// Generated 11-Jun-2020 11:09:51 by Hibernate Tools 4.3.1
 
 
 
@@ -36,23 +36,6 @@ public class LopMonhocId  implements java.io.Serializable {
     }
 
 
-   public boolean equals(Object other) {
-         if ( (this == other ) ) return true;
-		 if ( (other == null ) ) return false;
-		 if ( !(other instanceof LopMonhocId) ) return false;
-		 LopMonhocId castOther = ( LopMonhocId ) other; 
-         
-		 return ( (this.getMalop()==castOther.getMalop()) || ( this.getMalop()!=null && castOther.getMalop()!=null && this.getMalop().equals(castOther.getMalop()) ) )
- && ( (this.getMssv()==castOther.getMssv()) || ( this.getMssv()!=null && castOther.getMssv()!=null && this.getMssv().equals(castOther.getMssv()) ) );
-   }
-   
-   public int hashCode() {
-         int result = 17;
-         
-         result = 37 * result + ( getMalop() == null ? 0 : this.getMalop().hashCode() );
-         result = 37 * result + ( getMssv() == null ? 0 : this.getMssv().hashCode() );
-         return result;
-   }   
 
 
 }

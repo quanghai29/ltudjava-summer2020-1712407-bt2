@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 04-Jun-2020 11:08:46 by Hibernate Tools 4.3.1 -->
+<!-- Generated 11-Jun-2020 11:09:52 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="pojos.Diem" table="diem" catalog="quanlydiemsv" optimistic-lock="version">
+    <class name="pojos.Diem" table="diem" catalog="quanlydiemsv">
         <composite-id name="id" class="pojos.DiemId">
             <key-property name="mssv" type="string">
                 <column name="mssv" length="45" />

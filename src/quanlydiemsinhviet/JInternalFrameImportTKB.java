@@ -13,6 +13,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import util.*;
 import pojos.*;
+import dao.ThoikhoabieuDAO;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -29,6 +31,14 @@ public class JInternalFrameImportTKB extends javax.swing.JInternalFrame {
         initComponents();
         setLocation(200, 30);
         //jTable1.setVisible(false);
+//        ThoikhoabieuId tID = new ThoikhoabieuId("100", "17HCB");
+//        Thoikhoabieu kq;
+//        kq = ThoikhoabieuDAO.lichMonHoc(tID);
+//        if (kq != null) {
+//            System.out.println("tim thay");
+//        } else {
+//            System.out.println("not found");
+//        }
     }
 
     /**
@@ -92,6 +102,11 @@ public class JInternalFrameImportTKB extends javax.swing.JInternalFrame {
 
         jButton1.setText("Import");
         jButton1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 2, true));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabelLop.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabelLop.setText("Lớp");
@@ -151,6 +166,12 @@ public class JInternalFrameImportTKB extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jButtonImportTKBActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        ThoikhoabieuDAO.themListTKB(tkb);
+        JOptionPane.showMessageDialog(null, "Nhập Thời Khóa biểu thành công");
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     private void loadDataTable(List<Thoikhoabieu> t) {
         DefaultTableModel TKB = new DefaultTableModel();
 
@@ -161,11 +182,11 @@ public class JInternalFrameImportTKB extends javax.swing.JInternalFrame {
 
         int count = 1;
         for (Thoikhoabieu tbieu : t) {
-            TKB.addRow(new Object[]{count, tbieu.getMamon(), tbieu.getTenmon(), tbieu.getPhonghoc()});
+            TKB.addRow(new Object[]{count, tbieu.getId().getMamon(), tbieu.getTenmon(), tbieu.getPhonghoc()});
             count++;
         }
 
-        this.jLabelLop.setText(t.get(0).getLop());
+        this.jLabelLop.setText(t.get(0).getId().getLop());
         this.jTableTKB.setModel(TKB);
         this.jTableTKB.repaint();
         this.jTableTKB.revalidate();

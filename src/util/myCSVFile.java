@@ -78,7 +78,9 @@ public class myCSVFile {
                 if (counter == 0) {
                     lop = s[0];
                 } else if (counter >= 2) {
-                    Thoikhoabieu TKB = new Thoikhoabieu(s[1], s[2], s[3], lop);
+                    ThoikhoabieuId id = new ThoikhoabieuId(s[1], lop);
+
+                    Thoikhoabieu TKB = new Thoikhoabieu(id, s[2], s[3]);
                     tkb.add(TKB);
                 }
 

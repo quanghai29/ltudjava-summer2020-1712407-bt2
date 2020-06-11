@@ -46,11 +46,11 @@ Contributor(s):
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/quanlydiemsv?useUnicode=yes&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull</property>
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.connection.password">root</property>
-    <mapping resource="pojos/Thoikhoabieu.hbm.xml"/>
     <mapping resource="pojos/Diem.hbm.xml"/>
     <mapping resource="pojos/Giaovu.hbm.xml"/>
     <mapping resource="pojos/LopMonhoc.hbm.xml"/>
     <mapping resource="pojos/Sinhvien.hbm.xml"/>
     <mapping resource="pojos/Phuckhao.hbm.xml"/>
+    <mapping resource="pojos/Thoikhoabieu.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

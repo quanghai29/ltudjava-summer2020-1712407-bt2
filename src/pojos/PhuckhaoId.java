@@ -1,5 +1,5 @@
 package pojos;
-// Generated 04-Jun-2020 11:08:46 by Hibernate Tools 4.3.1
+// Generated 11-Jun-2020 11:09:51 by Hibernate Tools 4.3.1
 
 
 
@@ -36,23 +36,6 @@ public class PhuckhaoId  implements java.io.Serializable {
     }
 
 
-   public boolean equals(Object other) {
-         if ( (this == other ) ) return true;
-		 if ( (other == null ) ) return false;
-		 if ( !(other instanceof PhuckhaoId) ) return false;
-		 PhuckhaoId castOther = ( PhuckhaoId ) other; 
-         
-		 return ( (this.getMssv()==castOther.getMssv()) || ( this.getMssv()!=null && castOther.getMssv()!=null && this.getMssv().equals(castOther.getMssv()) ) )
- && ( (this.getMamon()==castOther.getMamon()) || ( this.getMamon()!=null && castOther.getMamon()!=null && this.getMamon().equals(castOther.getMamon()) ) );
-   }
-   
-   public int hashCode() {
-         int result = 17;
-         
-         result = 37 * result + ( getMssv() == null ? 0 : this.getMssv().hashCode() );
-         result = 37 * result + ( getMamon() == null ? 0 : this.getMamon().hashCode() );
-         return result;
-   }   
 
 
 }
