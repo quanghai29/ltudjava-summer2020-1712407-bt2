@@ -48,9 +48,12 @@ Contributor(s):
     <property name="hibernate.connection.password">root</property>
     <mapping resource="pojos/Diem.hbm.xml"/>
     <mapping resource="pojos/Giaovu.hbm.xml"/>
-    <mapping resource="pojos/LopMonhoc.hbm.xml"/>
     <mapping resource="pojos/Sinhvien.hbm.xml"/>
     <mapping resource="pojos/Phuckhao.hbm.xml"/>
     <mapping resource="pojos/Thoikhoabieu.hbm.xml"/>
+    <mapping/>
+    <mapping/>
+    <mapping/>
+    <mapping resource="pojos/LopMonhoc.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

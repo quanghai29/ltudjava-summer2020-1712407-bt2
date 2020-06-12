@@ -5,11 +5,8 @@
         <group>
             <file>file:/F:/Java/quanlydiemsinhviet/src/quanlydiemsinhviet/JInternalFrameImportdsLop.java</file>
             <file>file:/F:/Java/quanlydiemsinhviet/src/quanlydiemsinhviet/JInternalFrameImportTKB.java</file>
-            <file>file:/F:/Java/quanlydiemsinhviet/src/pojos/Thoikhoabieu.java</file>
-            <file>file:/F:/Java/quanlydiemsinhviet/src/dao/Thoikhoabieu.java</file>
-            <file>file:/F:/Java/quanlydiemsinhviet/src/quanlydiemsinhviet/JFrameGVu.java</file>
+            <file>file:/F:/Java/quanlydiemsinhviet/src/dao/ThoikhoabieuDAO.java</file>
             <file>file:/F:/Java/quanlydiemsinhviet/src/dao/SinhVienDAO.java</file>
-            <file>file:/F:/Java/quanlydiemsinhviet/src/quanlydiemsinhviet/JFrameMain.java</file>
         </group>
     </open-files>
 </project-private>

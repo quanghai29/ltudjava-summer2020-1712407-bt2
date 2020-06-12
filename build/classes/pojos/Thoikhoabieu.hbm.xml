@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 11-Jun-2020 11:09:52 by Hibernate Tools 4.3.1 -->
+<!-- Generated 12-Jun-2020 18:52:38 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="pojos.Thoikhoabieu" table="thoikhoabieu" catalog="quanlydiemsv" optimistic-lock="version">
+    <class name="pojos.Thoikhoabieu" table="thoikhoabieu" catalog="quanlydiemsv">
         <composite-id name="id" class="pojos.ThoikhoabieuId">
             <key-property name="mamon" type="string">
                 <column name="mamon" length="45" />

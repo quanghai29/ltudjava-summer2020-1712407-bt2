@@ -1,5 +1,5 @@
 package pojos;
-// Generated 11-Jun-2020 11:09:51 by Hibernate Tools 4.3.1
+// Generated 12-Jun-2020 18:52:38 by Hibernate Tools 4.3.1
 
 
 
@@ -9,30 +9,30 @@ package pojos;
 public class LopMonhoc  implements java.io.Serializable {
 
 
-     private LopMonhocId id;
-     private String mamon;
+     private String malop;
+     private String mssv;
 
     public LopMonhoc() {
     }
 
-    public LopMonhoc(LopMonhocId id, String mamon) {
-       this.id = id;
-       this.mamon = mamon;
+    public LopMonhoc(String malop, String mssv) {
+       this.malop = malop;
+       this.mssv = mssv;
     }
    
-    public LopMonhocId getId() {
-        return this.id;
+    public String getMalop() {
+        return this.malop;
     }
     
-    public void setId(LopMonhocId id) {
-        this.id = id;
+    public void setMalop(String malop) {
+        this.malop = malop;
     }
-    public String getMamon() {
-        return this.mamon;
+    public String getMssv() {
+        return this.mssv;
     }
     
-    public void setMamon(String mamon) {
-        this.mamon = mamon;
+    public void setMssv(String mssv) {
+        this.mssv = mssv;
     }
 
 

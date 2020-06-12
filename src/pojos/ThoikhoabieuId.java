@@ -1,5 +1,5 @@
 package pojos;
-// Generated 11-Jun-2020 11:09:51 by Hibernate Tools 4.3.1
+// Generated 12-Jun-2020 18:52:38 by Hibernate Tools 4.3.1
 
 
 
@@ -36,23 +36,6 @@ public class ThoikhoabieuId  implements java.io.Serializable {
     }
 
 
-   public boolean equals(Object other) {
-         if ( (this == other ) ) return true;
-		 if ( (other == null ) ) return false;
-		 if ( !(other instanceof ThoikhoabieuId) ) return false;
-		 ThoikhoabieuId castOther = ( ThoikhoabieuId ) other; 
-         
-		 return ( (this.getMamon()==castOther.getMamon()) || ( this.getMamon()!=null && castOther.getMamon()!=null && this.getMamon().equals(castOther.getMamon()) ) )
- && ( (this.getLop()==castOther.getLop()) || ( this.getLop()!=null && castOther.getLop()!=null && this.getLop().equals(castOther.getLop()) ) );
-   }
-   
-   public int hashCode() {
-         int result = 17;
-         
-         result = 37 * result + ( getMamon() == null ? 0 : this.getMamon().hashCode() );
-         result = 37 * result + ( getLop() == null ? 0 : this.getLop().hashCode() );
-         return result;
-   }   
 
 
 }

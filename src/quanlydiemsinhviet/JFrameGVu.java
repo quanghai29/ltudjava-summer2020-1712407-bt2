@@ -36,6 +36,7 @@ public class JFrameGVu extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         jMenuItemDSlop = new javax.swing.JMenuItem();
         jMenuItemImportTKB = new javax.swing.JMenuItem();
+        jMenuItemLopMonHoc = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItemThemSV = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
@@ -78,6 +79,14 @@ public class JFrameGVu extends javax.swing.JFrame {
             }
         });
         jMenu3.add(jMenuItemImportTKB);
+
+        jMenuItemLopMonHoc.setText("Danh Sách Lớp - Môn Học");
+        jMenuItemLopMonHoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemLopMonHocActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItemLopMonHoc);
 
         jMenuBar2.add(jMenu3);
 
@@ -125,6 +134,13 @@ public class JFrameGVu extends javax.swing.JFrame {
         this.jDesktopPane1.add(TKB);
     }//GEN-LAST:event_jMenuItemImportTKBActionPerformed
 
+    private void jMenuItemLopMonHocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemLopMonHocActionPerformed
+        // TODO add your handling code here:
+        JInternalFrameImportLopMonHoc lmh = new JInternalFrameImportLopMonHoc();
+        lmh.setVisible(true);
+        this.jDesktopPane1.add(lmh);
+    }//GEN-LAST:event_jMenuItemLopMonHocActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -169,6 +185,7 @@ public class JFrameGVu extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItemDSlop;
     private javax.swing.JMenuItem jMenuItemImportTKB;
+    private javax.swing.JMenuItem jMenuItemLopMonHoc;
     private javax.swing.JMenuItem jMenuItemThemSV;
     // End of variables declaration//GEN-END:variables
 }

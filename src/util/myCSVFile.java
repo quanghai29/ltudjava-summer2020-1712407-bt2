@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 import pojos.*;
 import quanlydiemsinhviet.JInternalFrameImportdsLop;
 
@@ -92,5 +93,40 @@ public class myCSVFile {
             Logger.getLogger(JInternalFrameImportdsLop.class.getName()).log(Level.SEVERE, null, ex);
         }
         return tkb;
+    }
+
+    public static List<LopMonhoc> importLopMonHoc(String file, DefaultTableModel defaultTBModel) {
+        List<LopMonhoc> lMhoc = null;
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
+            lMhoc = new ArrayList<LopMonhoc>();
+            String str;
+            String[] s;
+            int counter = 0;
+            String lop = "";
+            while (true) {
+                str = br.readLine();
+                if (str == null) {
+                    break;
+                }
+                s = str.split(",");
+
+                //first line
+                if (counter == 0) {
+                    lop = s[0];
+                } else if (counter >= 2) {
+                    LopMonhoc l = new LopMonhoc(lop, s[1]);
+                    lMhoc.add(l);
+                    defaultTBModel.addRow(new Object[]{counter - 1, s[1], s[2], s[3], s[4]});
+                }
+
+                counter++;
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(JInternalFrameImportdsLop.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(JInternalFrameImportdsLop.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lMhoc;
     }
 }
