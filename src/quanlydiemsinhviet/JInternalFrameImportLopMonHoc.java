@@ -10,6 +10,8 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import pojos.LopMonhoc;
+import dao.LopMonHocDAO;
+import javax.swing.JOptionPane;
 import util.myCSVFile;
 
 /**
@@ -21,6 +23,8 @@ public class JInternalFrameImportLopMonHoc extends javax.swing.JInternalFrame {
     /**
      * Creates new form JInternalFrameImportLopMonHoc
      */
+    private List<LopMonhoc> dsLOPmonHoc;
+
     public JInternalFrameImportLopMonHoc() {
         initComponents();
         setLocation(200, 30);
@@ -40,6 +44,9 @@ public class JInternalFrameImportLopMonHoc extends javax.swing.JInternalFrame {
         jTableLopMonHoc = new javax.swing.JTable();
         jButtonOpenFIle = new javax.swing.JButton();
         jLabelLop = new javax.swing.JLabel();
+        jButtonImport = new javax.swing.JButton();
+
+        setClosable(true);
 
         jTableLopMonHoc.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -61,16 +68,25 @@ public class JInternalFrameImportLopMonHoc extends javax.swing.JInternalFrame {
 
         jLabelLop.setText("Lớp");
 
+        jButtonImport.setText("Import");
+        jButtonImport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonImportActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonOpenFIle)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 787, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelLop, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButtonImport, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jButtonOpenFIle)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 787, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabelLop, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(41, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -78,11 +94,13 @@ public class JInternalFrameImportLopMonHoc extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(jButtonOpenFIle)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                .addComponent(jLabelLop)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jLabelLop)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(jButtonImport)
+                .addContainerGap(118, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
@@ -101,25 +119,35 @@ public class JInternalFrameImportLopMonHoc extends javax.swing.JInternalFrame {
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             System.out.println(chooser.getSelectedFile());
             String fileChooser = chooser.getSelectedFile().toString();
-            List<LopMonhoc> dsLOPmonHoc = null;
+            dsLOPmonHoc = null;
             DefaultTableModel LMH = new DefaultTableModel();
 
-            //loadDataTable(tkb);
+            //Load data to table LOP-MONHOC
             LMH.addColumn("STT");
             LMH.addColumn("MSSV");
             LMH.addColumn("Họ Tên");
             LMH.addColumn("Giới Tính");
             LMH.addColumn("CMND");
+
             dsLOPmonHoc = myCSVFile.importLopMonHoc(fileChooser, LMH);
-            this.jLabelLop.setText(dsLOPmonHoc.get(0).getMalop());
+            this.jLabelLop.setText(dsLOPmonHoc.get(0).getId().getMalop());
             this.jTableLopMonHoc.setModel(LMH);
-            this.jLabelLop.repaint();
-            this.jLabelLop.revalidate();
-            this.jLabelLop.setVisible(true);
+            this.jTableLopMonHoc.repaint();
+            this.jTableLopMonHoc.revalidate();
+            this.jTableLopMonHoc.setVisible(true);
+
+            //INSERT TO data
         }
     }//GEN-LAST:event_jButtonOpenFIleActionPerformed
 
+    private void jButtonImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImportActionPerformed
+        // TODO add your handling code here:
+        LopMonHocDAO.themNhieuSVLop(dsLOPmonHoc);
+        JOptionPane.showMessageDialog(null, "Import Thành Công");
+    }//GEN-LAST:event_jButtonImportActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonImport;
     private javax.swing.JButton jButtonOpenFIle;
     private javax.swing.JLabel jLabelLop;
     private javax.swing.JPanel jPanel1;

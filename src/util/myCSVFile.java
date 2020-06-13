@@ -115,7 +115,7 @@ public class myCSVFile {
                 if (counter == 0) {
                     lop = s[0];
                 } else if (counter >= 2) {
-                    LopMonhoc l = new LopMonhoc(lop, s[1]);
+                    LopMonhoc l = new LopMonhoc(new LopMonhocId(lop, s[1]));
                     lMhoc.add(l);
                     defaultTBModel.addRow(new Object[]{counter - 1, s[1], s[2], s[3], s[4]});
                 }

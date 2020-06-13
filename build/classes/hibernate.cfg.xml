@@ -51,9 +51,6 @@ Contributor(s):
     <mapping resource="pojos/Sinhvien.hbm.xml"/>
     <mapping resource="pojos/Phuckhao.hbm.xml"/>
     <mapping resource="pojos/Thoikhoabieu.hbm.xml"/>
-    <mapping/>
-    <mapping/>
-    <mapping/>
     <mapping resource="pojos/LopMonhoc.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>
