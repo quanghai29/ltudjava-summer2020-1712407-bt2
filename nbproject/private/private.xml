@@ -5,7 +5,7 @@
         <group>
             <file>file:/F:/Java/quanlydiemsinhviet/src/quanlydiemsinhviet/JInternalFrameImportTKB.java</file>
             <file>file:/F:/Java/quanlydiemsinhviet/src/dao/ThoikhoabieuDAO.java</file>
-            <file>file:/F:/Java/quanlydiemsinhviet/src/util/myCSVFile.java</file>
+            <file>file:/F:/Java/quanlydiemsinhviet/src/dao/LopMonHocDAO.java</file>
             <file>file:/F:/Java/quanlydiemsinhviet/src/dao/SinhVienDAO.java</file>
             <file>file:/F:/Java/quanlydiemsinhviet/src/quanlydiemsinhviet/JInternalFrameImportLopMonHoc.java</file>
         </group>

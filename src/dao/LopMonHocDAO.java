@@ -7,10 +7,12 @@ package dao;
 
 import java.util.List;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import pojos.LopMonhoc;
 import pojos.LopMonhocId;
+import pojos.Sinhvien;
 import util.NewHibernateUtil;
 
 /**
@@ -52,6 +54,38 @@ public class LopMonHocDAO {
             kq = (LopMonhoc) session.get(LopMonhoc.class, id);
         } catch (Exception ex) {
             //Log the exception
+            System.out.println(ex);
+        } finally {
+            session.close();
+        }
+        return kq;
+    }
+
+    public static List<String> layDSLop() {
+        List<String> kq = null;
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = null;
+        try {
+            String hql = "select distinct l.id.malop from LopMonhoc l";
+            Query query = session.createQuery(hql);
+            kq = query.list();
+        } catch (HibernateException ex) {
+            System.out.println(ex);
+        } finally {
+            session.close();
+        }
+        return kq;
+    }
+
+    public static List<Sinhvien> layDStheoLop(String malop) {
+        List<Sinhvien> kq = null;
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = null;
+        try {
+            String hql = "select s.* from LopMonhoc l inner join Sinhvien s on l.id.mssv = s.mssv where l.id.malop = malop";
+            Query query = session.createQuery(hql);
+            kq = query.list();
+        } catch (HibernateException ex) {
             System.out.println(ex);
         } finally {
             session.close();
