@@ -35,6 +35,22 @@ public class SinhVienDAO {
         return ds;
     }
 
+    public static List<Sinhvien> layDanhSachSinhVienTheoLop(String lop) {
+        List<Sinhvien> ds = null;
+        Session session = NewHibernateUtil.getSessionFactory()
+                .openSession();
+        try {
+            String hql = "select sv from Sinhvien sv where lop = sv.lop";
+            Query query = session.createQuery(hql);
+            ds = query.list();
+        } catch (HibernateException ex) {
+            System.out.println(ex);
+        } finally {
+            session.close();
+        }
+        return ds;
+    }
+
     public static Sinhvien laythongtinsinhvien(String maSinhVien) {
         Sinhvien sv = null;
         Session session = NewHibernateUtil.getSessionFactory().openSession();

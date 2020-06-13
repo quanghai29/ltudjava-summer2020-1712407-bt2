@@ -39,7 +39,6 @@ public class JFrameGVu extends javax.swing.JFrame {
         jMenuItemLopMonHoc = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItemThemSV = new javax.swing.JMenuItem();
-        jMenu5 = new javax.swing.JMenu();
         jMenu6 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -62,7 +61,7 @@ public class JFrameGVu extends javax.swing.JFrame {
         jMenuBar2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jMenuBar2.setPreferredSize(new java.awt.Dimension(166, 30));
 
-        jMenu3.setText("Nhập");
+        jMenu3.setText("Nhập/ Xem");
 
         jMenuItemDSlop.setText("Danh Sách Lớp");
         jMenuItemDSlop.addActionListener(new java.awt.event.ActionListener() {
@@ -101,9 +100,6 @@ public class JFrameGVu extends javax.swing.JFrame {
         jMenu4.add(jMenuItemThemSV);
 
         jMenuBar2.add(jMenu4);
-
-        jMenu5.setText("Xem");
-        jMenuBar2.add(jMenu5);
 
         jMenu6.setText("Sửa");
         jMenuBar2.add(jMenu6);
@@ -180,7 +176,6 @@ public class JFrameGVu extends javax.swing.JFrame {
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItemDSlop;

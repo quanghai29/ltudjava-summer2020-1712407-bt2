@@ -38,6 +38,7 @@ public class JInternalFrameImportdsLop extends javax.swing.JInternalFrame {
         initComponents();
         setLocation(200, 30);
         this.jTabledsSV.setVisible(false);
+        loadDSLop();
     }
 
     /**
@@ -54,6 +55,7 @@ public class JInternalFrameImportdsLop extends javax.swing.JInternalFrame {
         jTabledsSV = new javax.swing.JTable();
         jlabelLop = new javax.swing.JLabel();
         jButtonImportDsLop = new javax.swing.JButton();
+        jComboBoxdsLop = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(null);
@@ -92,26 +94,40 @@ public class JInternalFrameImportdsLop extends javax.swing.JInternalFrame {
             }
         });
 
+        jComboBoxdsLop.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxdsLop.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxdsLopActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButtonImportDsLop)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 751, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButtonImportDsLop)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 751, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(127, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jlabelLop, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButtonOpenFIle, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(127, Short.MAX_VALUE))
+                            .addComponent(jButtonOpenFIle, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jComboBoxdsLop, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(139, 139, 139))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jButtonOpenFIle)
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButtonOpenFIle)
+                    .addComponent(jComboBoxdsLop, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addComponent(jlabelLop, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -136,6 +152,7 @@ public class JInternalFrameImportdsLop extends javax.swing.JInternalFrame {
             System.out.println(chooser.getSelectedFile());
             String fileChooser = chooser.getSelectedFile().toString();
             //List<Sinhvien> ds = null;
+            jComboBoxdsLop.setSelectedIndex(0);
             dsSV = myCSVFile.importDSLop(fileChooser);
             loadDataTable(dsSV);
         }
@@ -143,9 +160,27 @@ public class JInternalFrameImportdsLop extends javax.swing.JInternalFrame {
 
     private void jButtonImportDsLopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImportDsLopActionPerformed
         // TODO add your handling code here:
-        SinhVienDAO.themNhieuSinhVien(dsSV);
-        JOptionPane.showMessageDialog(null, "Import Danh Sách Thành Công");
+        if (jComboBoxdsLop.getSelectedItem().toString() != "") {
+            JOptionPane.showMessageDialog(null, "Danh sách đã tồn tại");
+        } else {
+            SinhVienDAO.themNhieuSinhVien(dsSV);
+            JOptionPane.showMessageDialog(null, "Import Danh Sách Thành Công");
+        }
     }//GEN-LAST:event_jButtonImportDsLopActionPerformed
+
+    private void jComboBoxdsLopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxdsLopActionPerformed
+        // TODO add your handling code here:
+        String lop = jComboBoxdsLop.getSelectedItem().toString();
+        if (lop == "") {
+            DefaultTableModel model = (DefaultTableModel) jTabledsSV.getModel();
+            jlabelLop.setText("");
+            model.setRowCount(0);
+        } else {
+            List<Sinhvien> kq;
+            kq = SinhVienDAO.layDanhSachSinhVienTheoLop(lop);
+            loadDataTable(kq);
+        }
+    }//GEN-LAST:event_jComboBoxdsLopActionPerformed
 
     private void loadDataTable(List<Sinhvien> ds) {
         DefaultTableModel dsSV = new DefaultTableModel();
@@ -155,7 +190,6 @@ public class JInternalFrameImportdsLop extends javax.swing.JInternalFrame {
         dsSV.addColumn("Họ Tên");
         dsSV.addColumn("Giới Tính");
         dsSV.addColumn("CMND");
-
         int count = 1;
         for (Sinhvien sv : ds) {
             dsSV.addRow(new Object[]{count, sv.getMssv(), sv.getHoten(), sv.getGioitinh(), sv.getCmnd()});
@@ -168,9 +202,16 @@ public class JInternalFrameImportdsLop extends javax.swing.JInternalFrame {
         this.jTabledsSV.revalidate();
         this.jTabledsSV.setVisible(true);
     }
+
+    private void loadDSLop() {
+        List<String> dsLop = SinhVienDAO.getLop();
+        dsLop.add(0, "");
+        jComboBoxdsLop.setModel(new javax.swing.DefaultComboBoxModel<>(dsLop.toArray(new String[0])));
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonImportDsLop;
     private javax.swing.JButton jButtonOpenFIle;
+    private javax.swing.JComboBox<String> jComboBoxdsLop;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTabledsSV;
     private javax.swing.JLabel jlabelLop;
