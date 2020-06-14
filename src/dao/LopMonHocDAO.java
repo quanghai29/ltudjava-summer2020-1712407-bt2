@@ -82,9 +82,11 @@ public class LopMonHocDAO {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         try {
-            String hql = "select s.* from LopMonhoc l inner join Sinhvien s on l.id.mssv = s.mssv where l.id.malop = malop";
+            String hql = "select s from LopMonhoc l ,Sinhvien as s where l.id.mssv = s.mssv AND l.id.malop = :idLop";
             Query query = session.createQuery(hql);
+            query.setParameter("idLop", malop);
             kq = query.list();
+
         } catch (HibernateException ex) {
             System.out.println(ex);
         } finally {

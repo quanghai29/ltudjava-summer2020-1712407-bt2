@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import pojos.LopMonhoc;
 import dao.LopMonHocDAO;
 import javax.swing.JOptionPane;
+import pojos.Sinhvien;
 import util.myCSVFile;
 
 /**
@@ -97,9 +98,8 @@ public class JInternalFrameImportLopMonHoc extends javax.swing.JInternalFrame {
                         .addComponent(jComboBoxdsLopMon, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jButtonImport, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelLop, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 787, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 787, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabelLop, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(41, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -135,8 +135,9 @@ public class JInternalFrameImportLopMonHoc extends javax.swing.JInternalFrame {
             System.out.println(chooser.getSelectedFile());
             String fileChooser = chooser.getSelectedFile().toString();
             dsLOPmonHoc = null;
-            DefaultTableModel LMH = new DefaultTableModel();
 
+            jComboBoxdsLopMon.setSelectedIndex(0);
+            DefaultTableModel LMH = new DefaultTableModel();
             //Load data to table LOP-MONHOC
             LMH.addColumn("STT");
             LMH.addColumn("MSSV");
@@ -157,13 +158,34 @@ public class JInternalFrameImportLopMonHoc extends javax.swing.JInternalFrame {
 
     private void jButtonImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImportActionPerformed
         // TODO add your handling code here:
-        LopMonHocDAO.themNhieuSVLop(dsLOPmonHoc);
-        JOptionPane.showMessageDialog(null, "Import Thành Công");
+        String lopmon = jComboBoxdsLopMon.getSelectedItem().toString();
+        if (lopmon == "") {
+            LopMonHocDAO.themNhieuSVLop(dsLOPmonHoc);
+            JOptionPane.showMessageDialog(null, "Import Thành Công");
+        } else {
+            JOptionPane.showMessageDialog(null, "Danh Sách Đã Tồn Tại");
+        }
+
     }//GEN-LAST:event_jButtonImportActionPerformed
 
     private void jComboBoxdsLopMonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxdsLopMonActionPerformed
         // TODO add your handling code here:
+        String lop = jComboBoxdsLopMon.getSelectedItem().toString();
+        DefaultTableModel model = (DefaultTableModel) jTableLopMonHoc.getModel();
+        model.setRowCount(0);
+        if (lop == "") {
+            //model.addRow(new Object[]{"hi", "hello", "alo", "alo", "alo"});
+            jLabelLop.setText("lop");
 
+        } else {
+            List<Sinhvien> dsSVLopMon = LopMonHocDAO.layDStheoLop(lop);
+            int counter = 1;
+            for (Sinhvien sv : dsSVLopMon) {
+                model.addRow(new Object[]{counter, sv.getMssv(), sv.getHoten(), sv.getGioitinh(), sv.getCmnd()});
+                counter++;
+            }
+            jLabelLop.setText(lop);
+        }
     }//GEN-LAST:event_jComboBoxdsLopMonActionPerformed
 
     private void loadDSLopMon() {
