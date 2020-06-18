@@ -37,6 +37,7 @@ public class JFrameGVu extends javax.swing.JFrame {
         jMenuItemDSlop = new javax.swing.JMenuItem();
         jMenuItemImportTKB = new javax.swing.JMenuItem();
         jMenuItemLopMonHoc = new javax.swing.JMenuItem();
+        jMenuItemBangDiem = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItemThemSV = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
@@ -86,6 +87,14 @@ public class JFrameGVu extends javax.swing.JFrame {
             }
         });
         jMenu3.add(jMenuItemLopMonHoc);
+
+        jMenuItemBangDiem.setText("Bảng điểm");
+        jMenuItemBangDiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemBangDiemActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItemBangDiem);
 
         jMenuBar2.add(jMenu3);
 
@@ -137,6 +146,13 @@ public class JFrameGVu extends javax.swing.JFrame {
         this.jDesktopPane1.add(lmh);
     }//GEN-LAST:event_jMenuItemLopMonHocActionPerformed
 
+    private void jMenuItemBangDiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBangDiemActionPerformed
+        // TODO add your handling code here:
+        JInternalFrameBangDiem BD = new JInternalFrameBangDiem();
+        BD.setVisible(true);
+        this.jDesktopPane1.add(BD);
+    }//GEN-LAST:event_jMenuItemBangDiemActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -178,6 +194,7 @@ public class JFrameGVu extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenuItem jMenuItemBangDiem;
     private javax.swing.JMenuItem jMenuItemDSlop;
     private javax.swing.JMenuItem jMenuItemImportTKB;
     private javax.swing.JMenuItem jMenuItemLopMonHoc;

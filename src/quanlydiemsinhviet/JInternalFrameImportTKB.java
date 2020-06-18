@@ -5,6 +5,7 @@
  */
 package quanlydiemsinhviet;
 
+import dao.LopMonHocDAO;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JFileChooser;
@@ -30,6 +31,7 @@ public class JInternalFrameImportTKB extends javax.swing.JInternalFrame {
     public JInternalFrameImportTKB() {
         initComponents();
         setLocation(200, 30);
+        loadDsTKB();
         //jTable1.setVisible(false);
 //        ThoikhoabieuId tID = new ThoikhoabieuId("100", "17HCB");
 //        Thoikhoabieu kq;
@@ -60,6 +62,7 @@ public class JInternalFrameImportTKB extends javax.swing.JInternalFrame {
         jTableTKB = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jLabelLop = new javax.swing.JLabel();
+        jComboBoxTKB = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setTitle("Thời khóa biểu");
@@ -111,6 +114,13 @@ public class JInternalFrameImportTKB extends javax.swing.JInternalFrame {
         jLabelLop.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabelLop.setText("Lớp");
 
+        jComboBoxTKB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxTKB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxTKBActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -127,14 +137,17 @@ public class JInternalFrameImportTKB extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButtonImportTKB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabelLop, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jComboBoxTKB, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addComponent(jButtonImportTKB)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonImportTKB)
+                    .addComponent(jComboBoxTKB, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabelLop, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -161,6 +174,7 @@ public class JInternalFrameImportTKB extends javax.swing.JInternalFrame {
             System.out.println(chooser.getSelectedFile());
             String fileChooser = chooser.getSelectedFile().toString();
             //List<Sinhvien> ds = null;
+            jComboBoxTKB.setSelectedIndex(0);
             tkb = myCSVFile.importTKB(fileChooser);
             loadDataTable(tkb);
         }
@@ -168,9 +182,38 @@ public class JInternalFrameImportTKB extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        ThoikhoabieuDAO.themListTKB(tkb);
-        JOptionPane.showMessageDialog(null, "Nhập Thời Khóa biểu thành công");
+        String lop = jComboBoxTKB.getSelectedItem().toString();
+        if (lop != "") {
+            JOptionPane.showMessageDialog(null, "Lịch đã tồn tại");
+        } else {
+            ThoikhoabieuDAO.themListTKB(tkb);
+            JOptionPane.showMessageDialog(null, "Nhập Thời Khóa biểu thành công");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jComboBoxTKBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTKBActionPerformed
+        // TODO add your handling code here:
+
+        String lop = jComboBoxTKB.getSelectedItem().toString();
+        DefaultTableModel model = (DefaultTableModel) jTableTKB.getModel();
+        model.setRowCount(0);
+        if (lop == "") {
+            //model.addRow(new Object[]{"hi", "hello", "alo", "alo", "alo"});
+            jLabelLop.setText("Lớp");
+        } else {
+            List<Thoikhoabieu> dsTKB = ThoikhoabieuDAO.TKBofLop(lop);
+            if (dsTKB == null) {
+                return;
+            }
+            int counter = 1;
+            for (Thoikhoabieu t : dsTKB) {
+                ThoikhoabieuId id = t.getId();
+                model.addRow(new Object[]{counter, id.getMamon(), t.getTenmon(), t.getPhonghoc()});
+                counter++;
+            }
+            jLabelLop.setText(lop);
+        }
+    }//GEN-LAST:event_jComboBoxTKBActionPerformed
 
     private void loadDataTable(List<Thoikhoabieu> t) {
         DefaultTableModel TKB = new DefaultTableModel();
@@ -192,9 +235,16 @@ public class JInternalFrameImportTKB extends javax.swing.JInternalFrame {
         this.jTableTKB.revalidate();
         this.jTableTKB.setVisible(true);
     }
+
+    private void loadDsTKB() {
+        List<String> dsLopTKB = ThoikhoabieuDAO.dsLopTKB();
+        dsLopTKB.add(0, "");
+        jComboBoxTKB.setModel(new javax.swing.DefaultComboBoxModel<>(dsLopTKB.toArray(new String[0])));
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonImportTKB;
+    private javax.swing.JComboBox<String> jComboBoxTKB;
     private javax.swing.JLabel jLabelLop;
     private javax.swing.JList<String> jList1;
     private javax.swing.JList<String> jList2;

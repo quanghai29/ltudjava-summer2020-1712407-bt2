@@ -7,6 +7,8 @@ package dao;
 
 import java.util.List;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import pojos.Thoikhoabieu;
@@ -58,4 +60,38 @@ public class ThoikhoabieuDAO {
         return kq;
     }
 
+    public static List<String> dsLopTKB() {
+        List<String> dsLop = null;
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = null;
+        try {
+            String hql = "select distinct t.id.lop from Thoikhoabieu t";
+            Query query = session.createQuery(hql);
+            dsLop = query.list();
+
+        } catch (HibernateException ex) {
+            System.out.println(ex);
+        } finally {
+            session.close();
+        }
+        return dsLop;
+    }
+
+    public static List<Thoikhoabieu> TKBofLop(String lop) {
+        List<Thoikhoabieu> kq = null;
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = null;
+        try {
+            String hql = "select t from Thoikhoabieu as t where t.id.lop = :idLop";
+            Query query = session.createQuery(hql);
+            query.setParameter("idLop", lop);
+            kq = query.list();
+
+        } catch (HibernateException ex) {
+            System.out.println(ex);
+        } finally {
+            session.close();
+        }
+        return kq;
+    }
 }
