@@ -129,4 +129,40 @@ public class myCSVFile {
         }
         return lMhoc;
     }
+
+    public static List<Diem> importBangDiem(String file, DefaultTableModel defaultTBModel) {
+        List<Diem> BD = null;
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
+            BD = new ArrayList<Diem>();
+            String str;
+            String[] s;
+            int counter = 0;
+            String lop = "";
+            while (true) {
+                str = br.readLine();
+                if (str == null) {
+                    break;
+                }
+                s = str.split(",");
+
+                //first line
+                if (counter == 0) {
+                    lop = s[0];
+                } else if (counter >= 2) {
+                    DiemId id = new DiemId(s[1], lop);
+                    Diem d = new Diem(id, Float.parseFloat(s[3]), Float.parseFloat(s[4]), Float.parseFloat(s[5]), Float.parseFloat(s[6]));
+                    BD.add(d);
+                    defaultTBModel.addRow(new Object[]{counter - 1, s[1], s[2], s[3], s[4], s[5], s[6]});
+                }
+
+                counter++;
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(JInternalFrameImportdsLop.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(JInternalFrameImportdsLop.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return BD;
+    }
 }

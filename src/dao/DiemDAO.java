@@ -7,6 +7,7 @@ package dao;
 
 import java.util.List;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import pojos.Sinhvien;
@@ -20,29 +21,29 @@ import util.NewHibernateUtil;
  */
 public class DiemDAO {
 
-    public static Sinhvien layThongTinDiemSV(String maSinhVien) {
-        Sinhvien sv = null;
+    public static Diem layThongTinDiemSV(DiemId id) {
+        Diem d = null;
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         try {
-            sv = (Sinhvien) session.get(Sinhvien.class, maSinhVien);
+            d = (Diem) session.get(Diem.class, id);
         } catch (Exception ex) {
             //Log the exception
             System.out.println(ex);
         } finally {
             session.close();
         }
-        return sv;
+        return d;
     }
 
-    public static boolean themSinhVien(Sinhvien sv) {
+    public static boolean themDiemSV(Diem newDiem) {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
-        if (SinhVienDAO.laythongtinsinhvien(sv.getMssv()) != null) {
+        if (layThongTinDiemSV(newDiem.getId()) != null) {
             return false;
         }
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
-            session.save(sv);
+            session.save(newDiem);
             transaction.commit();
         } catch (HibernateException ex) {
             transaction.rollback();
@@ -53,10 +54,25 @@ public class DiemDAO {
         return true;
     }
 
-    public static void themNhieuSinhVien(List<Sinhvien> ds) {
+    public static void themDiemNSV(List<Diem> ds) {
         for (int i = 0; i < ds.size(); i++) {
-            System.out.println(ds.get(i).getHoten());
-            themSinhVien(ds.get(i));
+            themDiemSV(ds.get(i));
         }
+    }
+
+    public static List<String> dsLop() {
+        List<String> kq = null;
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        //Transaction transaction = null;
+        try {
+            String hql = "select distinct d.id.malop from Diem as d";
+            Query query = session.createQuery(hql);
+            kq = query.list();
+        } catch (HibernateException ex) {
+            System.out.println(ex);
+        } finally {
+            session.close();
+        }
+        return kq;
     }
 }

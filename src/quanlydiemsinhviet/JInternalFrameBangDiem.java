@@ -5,6 +5,16 @@
  */
 package quanlydiemsinhviet;
 
+import dao.DiemDAO;
+import pojos.Diem;
+import pojos.DiemId;
+import java.util.*;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
+import util.myCSVFile;
+
 /**
  *
  * @author DELL
@@ -17,7 +27,11 @@ public class JInternalFrameBangDiem extends javax.swing.JInternalFrame {
     public JInternalFrameBangDiem() {
         initComponents();
         setLocation(200, 30);
+        loadDsLopMon();
     }
+
+    private List<Diem> dsDiemSV;
+    private List<String> dsLop;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -34,28 +48,39 @@ public class JInternalFrameBangDiem extends javax.swing.JInternalFrame {
         jComboBoxLopMon = new javax.swing.JComboBox<>();
         jLabelLop = new javax.swing.JLabel();
         jButtonOpenFile = new javax.swing.JButton();
+        jButtonImport = new javax.swing.JButton();
 
         setClosable(true);
 
         jTableBangDiem.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null ,null},
+                {null, null, null, null, null, null ,null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "STT", "MSSV", "Họ tên", "Điểm GK","Điểm CK","Điểm khác","Điểm tổng"
             }
         ));
         jScrollPane1.setViewportView(jTableBangDiem);
 
-        jComboBoxLopMon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxLopMon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {""}));
 
         jLabelLop.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabelLop.setText("Lớp ");
 
         jButtonOpenFile.setText("Open File");
+        jButtonOpenFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonOpenFileActionPerformed(evt);
+            }
+        });
+
+        jButtonImport.setText("Import");
+        jButtonImport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonImportActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -63,14 +88,16 @@ public class JInternalFrameBangDiem extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(69, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 910, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelLop, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonOpenFile, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jComboBoxLopMon, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButtonImport)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 910, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabelLop, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jButtonOpenFile, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBoxLopMon, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(56, 56, 56))
         );
         jPanel1Layout.setVerticalGroup(
@@ -84,7 +111,9 @@ public class JInternalFrameBangDiem extends javax.swing.JInternalFrame {
                 .addComponent(jLabelLop, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(187, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addComponent(jButtonImport)
+                .addContainerGap(133, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
@@ -92,7 +121,63 @@ public class JInternalFrameBangDiem extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButtonOpenFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOpenFileActionPerformed
+        // TODO add your handling code here:
+        JFileChooser chooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                "CSV UTF-8(Comma delimited)(*.csv)", "csv");
+        chooser.setFileFilter(filter);
+
+        int returnVal = chooser.showOpenDialog(null);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            System.out.println(chooser.getSelectedFile());
+            dsDiemSV = null;
+            String fileChooser = chooser.getSelectedFile().toString();
+
+            DefaultTableModel defaultModel = new DefaultTableModel();
+            //Load data to table LOP-MONHOC
+            defaultModel.addColumn("STT");
+            defaultModel.addColumn("MSSV");
+            defaultModel.addColumn("Họ Tên");
+            defaultModel.addColumn("Điểm GK");
+            defaultModel.addColumn("Điểm CK");
+            defaultModel.addColumn("Điểm Khác");
+            defaultModel.addColumn("Điểm Tổng");
+
+            dsDiemSV = util.myCSVFile.importBangDiem(fileChooser, defaultModel);
+            if (dsDiemSV != null) {
+                this.jLabelLop.setText(dsDiemSV.get(0).getId().getMalop());
+            }
+            this.jTableBangDiem.setModel(defaultModel);
+            this.jTableBangDiem.repaint();
+            this.jTableBangDiem.revalidate();
+            this.jTableBangDiem.setVisible(true);
+        }
+    }//GEN-LAST:event_jButtonOpenFileActionPerformed
+
+    private void jButtonImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImportActionPerformed
+        // TODO add your handling code here:
+        String lop = jComboBoxLopMon.getSelectedItem().toString();
+        if (lop == "") {
+            if (dsDiemSV != null) {
+                DiemDAO.themDiemNSV(dsDiemSV);
+                JOptionPane.showMessageDialog(null, "Thêm điểm thành công");
+                dsLop.add(jLabelLop.getText());
+            } else {
+                JOptionPane.showMessageDialog(null, "Danh sách đã tồn tại");
+            }
+        }
+    }//GEN-LAST:event_jButtonImportActionPerformed
+
+    private void loadDsLopMon() {
+        dsLop = DiemDAO.dsLop();
+        if (dsLop != null) {
+            dsLop.add(0, "");
+            jComboBoxLopMon.setModel(new javax.swing.DefaultComboBoxModel<>(dsLop.toArray(new String[0])));
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonImport;
     private javax.swing.JButton jButtonOpenFile;
     private javax.swing.JComboBox<String> jComboBoxLopMon;
     private javax.swing.JLabel jLabelLop;

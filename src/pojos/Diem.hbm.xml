@@ -12,9 +12,6 @@
                 <column name="malop" length="45" />
             </key-property>
         </composite-id>
-        <property name="mamon" type="string">
-            <column name="mamon" length="45" unique="true" />
-        </property>
         <property name="diemGk" type="java.lang.Float">
             <column name="diemGK" precision="12" scale="0" />
         </property>
