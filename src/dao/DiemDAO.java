@@ -93,4 +93,20 @@ public class DiemDAO {
         return kq;
     }
 
+    public static int SLDau(String lop) {
+        int kq = 0;
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        //Transaction transaction = null;
+        try {
+            String hql = "select count(*) from Diem as d where d.dau != null ";
+            Query query = session.createQuery(hql);
+            long result = (long) query.uniqueResult();
+            kq = (int) result;
+        } catch (HibernateException ex) {
+            System.out.println(ex);
+        } finally {
+            session.close();
+        }
+        return kq;
+    }
 }

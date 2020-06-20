@@ -49,6 +49,8 @@ public class JInternalFrameBangDiem extends javax.swing.JInternalFrame {
         jLabelLop = new javax.swing.JLabel();
         jButtonOpenFile = new javax.swing.JButton();
         jButtonImport = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTextAreaKQ = new javax.swing.JTextArea();
 
         setClosable(true);
 
@@ -87,6 +89,13 @@ public class JInternalFrameBangDiem extends javax.swing.JInternalFrame {
             }
         });
 
+        jTextAreaKQ.setEditable(false);
+        jTextAreaKQ.setBackground(new java.awt.Color(204, 204, 204));
+        jTextAreaKQ.setColumns(20);
+        jTextAreaKQ.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        jTextAreaKQ.setRows(5);
+        jScrollPane3.setViewportView(jTextAreaKQ);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -95,14 +104,16 @@ public class JInternalFrameBangDiem extends javax.swing.JInternalFrame {
                 .addContainerGap(69, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButtonImport)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 910, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabelLop, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jButtonOpenFile, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBoxLopMon, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 910, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelLop, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButtonOpenFile, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jComboBoxLopMon, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(56, 56, 56))
         );
         jPanel1Layout.setVerticalGroup(
@@ -118,7 +129,9 @@ public class JInternalFrameBangDiem extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addComponent(jButtonImport)
-                .addContainerGap(133, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
@@ -138,6 +151,7 @@ public class JInternalFrameBangDiem extends javax.swing.JInternalFrame {
             System.out.println(chooser.getSelectedFile());
             dsDiemSV = null;
             jComboBoxLopMon.setSelectedIndex(0);
+            jTextAreaKQ.setText("");
             String fileChooser = chooser.getSelectedFile().toString();
 
             DefaultTableModel defaultModel = new DefaultTableModel();
@@ -186,6 +200,8 @@ public class JInternalFrameBangDiem extends javax.swing.JInternalFrame {
         if (lop == "") {
             DefaultTableModel model = (DefaultTableModel) jTableBangDiem.getModel();
             model.setRowCount(0);
+            jTextAreaKQ.setText("");
+            jLabelLop.setText("");
             return;
         }
         // TODO add your handling code here:
@@ -214,6 +230,14 @@ public class JInternalFrameBangDiem extends javax.swing.JInternalFrame {
         this.jTableBangDiem.repaint();
         this.jTableBangDiem.revalidate();
         this.jTableBangDiem.setVisible(true);
+
+        counter--;
+        int SLdau = DiemDAO.SLDau(lop);
+        float ptDau = (SLdau / counter) * 100;
+        jTextAreaKQ.setText("Số Sinh Viên: " + counter + "\n"
+                + "Số lượng đạt: " + SLdau + "\n"
+                + "Tỷ lệ đạt: " + ptDau + " %");
+
     }//GEN-LAST:event_jComboBoxLopMonActionPerformed
 
     private void loadDsLopMon() {
@@ -230,6 +254,8 @@ public class JInternalFrameBangDiem extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabelLop;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTableBangDiem;
+    private javax.swing.JTextArea jTextAreaKQ;
     // End of variables declaration//GEN-END:variables
 }
