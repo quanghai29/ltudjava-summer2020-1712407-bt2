@@ -64,6 +64,11 @@ public class JInternalFrameBangDiem extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(jTableBangDiem);
 
         jComboBoxLopMon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {""}));
+        jComboBoxLopMon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxLopMonActionPerformed(evt);
+            }
+        });
 
         jLabelLop.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabelLop.setText("Lớp ");
@@ -132,6 +137,7 @@ public class JInternalFrameBangDiem extends javax.swing.JInternalFrame {
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             System.out.println(chooser.getSelectedFile());
             dsDiemSV = null;
+            jComboBoxLopMon.setSelectedIndex(0);
             String fileChooser = chooser.getSelectedFile().toString();
 
             DefaultTableModel defaultModel = new DefaultTableModel();
@@ -152,6 +158,7 @@ public class JInternalFrameBangDiem extends javax.swing.JInternalFrame {
             this.jTableBangDiem.repaint();
             this.jTableBangDiem.revalidate();
             this.jTableBangDiem.setVisible(true);
+
         }
     }//GEN-LAST:event_jButtonOpenFileActionPerformed
 
@@ -162,12 +169,52 @@ public class JInternalFrameBangDiem extends javax.swing.JInternalFrame {
             if (dsDiemSV != null) {
                 DiemDAO.themDiemNSV(dsDiemSV);
                 JOptionPane.showMessageDialog(null, "Thêm điểm thành công");
-                dsLop.add(jLabelLop.getText());
+                if (!dsLop.contains(lop)) {
+                    dsLop.add(lop);
+                    jComboBoxLopMon.addItem(jLabelLop.getText());
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "Danh sách đã tồn tại");
             }
         }
+
     }//GEN-LAST:event_jButtonImportActionPerformed
+
+    private void jComboBoxLopMonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxLopMonActionPerformed
+
+        String lop = jComboBoxLopMon.getSelectedItem().toString();
+        if (lop == "") {
+            DefaultTableModel model = (DefaultTableModel) jTableBangDiem.getModel();
+            model.setRowCount(0);
+            return;
+        }
+        // TODO add your handling code here:
+        DefaultTableModel defaultModel = new DefaultTableModel();
+        //Load data to table LOP-MONHOC
+        defaultModel.addColumn("STT");
+        defaultModel.addColumn("MSSV");
+        defaultModel.addColumn("Điểm GK");
+        defaultModel.addColumn("Điểm CK");
+        defaultModel.addColumn("Điểm Khác");
+        defaultModel.addColumn("Điểm Tổng");
+        defaultModel.addColumn("Đậu/Rớt");
+
+        dsDiemSV = DiemDAO.layDiemCuaLop(lop);
+
+        int counter = 1;
+        for (Diem d : dsDiemSV) {
+            defaultModel.addRow(new Object[]{counter, d.getId().getMssv(),
+                d.getDiemGk(), d.getDiemCk(), d.getDiemKhac(), d.getDiemTong(), d.getDau()});
+            counter++;
+        }
+        if (dsDiemSV != null) {
+            this.jLabelLop.setText(dsDiemSV.get(0).getId().getMalop());
+        }
+        this.jTableBangDiem.setModel(defaultModel);
+        this.jTableBangDiem.repaint();
+        this.jTableBangDiem.revalidate();
+        this.jTableBangDiem.setVisible(true);
+    }//GEN-LAST:event_jComboBoxLopMonActionPerformed
 
     private void loadDsLopMon() {
         dsLop = DiemDAO.dsLop();

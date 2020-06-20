@@ -24,5 +24,8 @@
         <property name="diemTong" type="java.lang.Float">
             <column name="diemTong" precision="12" scale="0" />
         </property>
+        <property name="dau" type="string">
+            <column name="dau" />
+        </property>
     </class>
 </hibernate-mapping>

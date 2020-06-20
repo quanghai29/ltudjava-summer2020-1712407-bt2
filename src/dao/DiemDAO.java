@@ -21,6 +21,23 @@ import util.NewHibernateUtil;
  */
 public class DiemDAO {
 
+    public static List<Diem> layDiemCuaLop(String lop) {
+        List<Diem> dsDiem = null;
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        //Transaction transaction = null;
+        try {
+            String hql = "select d from Diem as d where d.id.malop = :idLop";
+            Query query = session.createQuery(hql);
+            query.setParameter("idLop", lop);
+            dsDiem = query.list();
+        } catch (HibernateException ex) {
+            System.out.println(ex);
+        } finally {
+            session.close();
+        }
+        return dsDiem;
+    }
+
     public static Diem layThongTinDiemSV(DiemId id) {
         Diem d = null;
         Session session = NewHibernateUtil.getSessionFactory().openSession();
@@ -75,4 +92,5 @@ public class DiemDAO {
         }
         return kq;
     }
+
 }

@@ -11,6 +11,7 @@ public class Diem implements java.io.Serializable {
     private Float diemCk;
     private Float diemKhac;
     private Float diemTong;
+    private String dau;
 
     public Diem() {
     }
@@ -19,12 +20,13 @@ public class Diem implements java.io.Serializable {
         this.id = id;
     }
 
-    public Diem(DiemId id, Float diemGk, Float diemCk, Float diemKhac, Float diemTong) {
+    public Diem(DiemId id, Float diemGk, Float diemCk, Float diemKhac, Float diemTong, String dau) {
         this.id = id;
         this.diemGk = diemGk;
         this.diemCk = diemCk;
         this.diemKhac = diemKhac;
         this.diemTong = diemTong;
+        this.dau = dau;
     }
 
     public DiemId getId() {
@@ -67,4 +69,11 @@ public class Diem implements java.io.Serializable {
         this.diemTong = diemTong;
     }
 
+    public String getDau() {
+        return this.dau;
+    }
+
+    public void setDau(String dau) {
+        this.dau = dau;
+    }
 }

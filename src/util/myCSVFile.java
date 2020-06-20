@@ -151,7 +151,12 @@ public class myCSVFile {
                     lop = s[0];
                 } else if (counter >= 2) {
                     DiemId id = new DiemId(s[1], lop);
-                    Diem d = new Diem(id, Float.parseFloat(s[3]), Float.parseFloat(s[4]), Float.parseFloat(s[5]), Float.parseFloat(s[6]));
+                    String dau = null;
+                    Float diemTong = Float.parseFloat(s[6]);
+                    if (diemTong >= 5) {
+                        dau = "Đạt";
+                    }
+                    Diem d = new Diem(id, Float.parseFloat(s[3]), Float.parseFloat(s[4]), Float.parseFloat(s[5]), diemTong, dau);
                     BD.add(d);
                     defaultTBModel.addRow(new Object[]{counter - 1, s[1], s[2], s[3], s[4], s[5], s[6]});
                 }
