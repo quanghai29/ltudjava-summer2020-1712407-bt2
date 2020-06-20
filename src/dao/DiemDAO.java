@@ -109,4 +109,23 @@ public class DiemDAO {
         }
         return kq;
     }
+
+    public static boolean capNhatDiemSV(Diem diemSV) {
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        if (layThongTinDiemSV(diemSV.getId()) == null) {
+            return false;
+        }
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            session.update(diemSV);
+            transaction.commit();
+        } catch (HibernateException ex) {
+            transaction.rollback();
+            ex.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return true;
+    }
 }
