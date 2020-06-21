@@ -85,9 +85,13 @@ public class SinhVienDAO {
     }
 
     public static void themNhieuSinhVien(List<Sinhvien> ds) {
-        for (int i = 0; i < ds.size(); i++) {
-            System.out.println(ds.get(i).getHoten());
-            themSinhVien(ds.get(i));
+        for (Sinhvien sv : ds) {
+            //System.out.println(ds.get(i).getHoten());
+            boolean result = themSinhVien(sv);
+            if (result == true) {
+                Account acc = new Account(sv.getMssv(), sv.getMssv(), 2);
+                accountDAO.themAccount(acc);
+            }
         }
     }
 

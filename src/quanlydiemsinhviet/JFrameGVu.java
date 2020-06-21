@@ -6,6 +6,9 @@
 package quanlydiemsinhviet;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import static quanlydiemsinhviet.JFrameMain.frameGVu;
+import static quanlydiemsinhviet.JFrameMain.username;
 
 /**
  *
@@ -19,7 +22,8 @@ public class JFrameGVu extends javax.swing.JFrame {
     public JFrameGVu() {
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setTitle("Giáo Vụ");
+        String user = JFrameMain.username;
+        setTitle("Xin chào, " + user);
     }
 
     /**
@@ -32,6 +36,8 @@ public class JFrameGVu extends javax.swing.JFrame {
     private void initComponents() {
 
         jDesktopPane1 = new javax.swing.JDesktopPane();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         jMenuItemDSlop = new javax.swing.JMenuItem();
@@ -41,6 +47,7 @@ public class JFrameGVu extends javax.swing.JFrame {
         jMenu4 = new javax.swing.JMenu();
         jMenuItemThemSV = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
+        jMenuDangXuat = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -58,6 +65,12 @@ public class JFrameGVu extends javax.swing.JFrame {
         );
 
         getContentPane().add(jDesktopPane1, java.awt.BorderLayout.PAGE_START);
+
+        jLabel1.setText("jLabel1");
+        getContentPane().add(jLabel1, java.awt.BorderLayout.CENTER);
+
+        jLabel2.setText("jLabel2");
+        getContentPane().add(jLabel2, java.awt.BorderLayout.PAGE_END);
 
         jMenuBar2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jMenuBar2.setPreferredSize(new java.awt.Dimension(166, 30));
@@ -113,6 +126,14 @@ public class JFrameGVu extends javax.swing.JFrame {
         jMenu6.setText("Sửa");
         jMenuBar2.add(jMenu6);
 
+        jMenuDangXuat.setText("Đăng Xuất");
+        jMenuDangXuat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuDangXuatMouseClicked(evt);
+            }
+        });
+        jMenuBar2.add(jMenuDangXuat);
+
         setJMenuBar(jMenuBar2);
 
         pack();
@@ -153,6 +174,19 @@ public class JFrameGVu extends javax.swing.JFrame {
         this.jDesktopPane1.add(BD);
     }//GEN-LAST:event_jMenuItemBangDiemActionPerformed
 
+    private void jMenuDangXuatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuDangXuatMouseClicked
+        // TODO add your handling code here:
+        int result = JOptionPane.showConfirmDialog(null, "Bạn có muốn đăng xuất ?");
+        if (result == 0) {//yes
+            JFrameMain.frameGVu.setVisible(false);
+            JFrameMain.frameGVu.dispose();
+            JFrameMain frameMain = new JFrameMain();
+            frameMain.setVisible(true);
+        } else if (result == 1) {//no
+
+        }
+    }//GEN-LAST:event_jMenuDangXuatMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -190,10 +224,13 @@ public class JFrameGVu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenu jMenuDangXuat;
     private javax.swing.JMenuItem jMenuItemBangDiem;
     private javax.swing.JMenuItem jMenuItemDSlop;
     private javax.swing.JMenuItem jMenuItemImportTKB;

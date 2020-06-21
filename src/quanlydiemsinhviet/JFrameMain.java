@@ -7,6 +7,8 @@ package quanlydiemsinhviet;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import pojos.Account;
+import dao.accountDAO;
 
 /**
  *
@@ -17,10 +19,15 @@ public class JFrameMain extends javax.swing.JFrame {
     /**
      * Creates new form JFrameMain
      */
+    //public static JFrameMain frameMain;
+    public static String username;
+    public static JFrameGVu frameGVu;
+
     public JFrameMain() {
         initComponents();
         setSize(400, 350);
         setLocationRelativeTo(null);
+
     }
 
     /**
@@ -47,10 +54,10 @@ public class JFrameMain extends javax.swing.JFrame {
         setBackground(new java.awt.Color(204, 153, 255));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
+        jDesktopPane1.setBackground(new java.awt.Color(204, 153, 255));
         jDesktopPane1.setLayout(new java.awt.BorderLayout());
-        getContentPane().add(jDesktopPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(56, 12, -1, -1));
 
         jlogin.setBackground(new java.awt.Color(204, 153, 255));
         jlogin.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -58,33 +65,42 @@ public class JFrameMain extends javax.swing.JFrame {
         jlogin.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setBackground(new java.awt.Color(204, 153, 255));
-        jLabel1.setFont(new java.awt.Font("Century", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Century", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Login");
-        jlogin.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, -1, -1));
+        jlogin.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, 120, 40));
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel2.setText("Username: ");
-        jlogin.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 62, -1, -1));
+        jlogin.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 80, 40));
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Password: ");
-        jlogin.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 118, -1, -1));
-        jlogin.add(jusername, new org.netbeans.lib.awtextra.AbsoluteConstraints(89, 60, 140, -1));
+        jlogin.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, -1, -1));
+
+        jusername.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jusernameActionPerformed(evt);
+            }
+        });
+        jlogin.add(jusername, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, 200, 30));
 
         loginbtn.setText("Login");
+        loginbtn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 2, true));
         loginbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loginbtnActionPerformed(evt);
             }
         });
-        jlogin.add(loginbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, -1, -1));
-        jlogin.add(jpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, 140, -1));
+        jlogin.add(loginbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 90, 40));
+        jlogin.add(jpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 200, 30));
 
-        getContentPane().add(jlogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, 250, 200));
+        jDesktopPane1.add(jlogin, java.awt.BorderLayout.CENTER);
+
+        getContentPane().add(jDesktopPane1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -93,16 +109,25 @@ public class JFrameMain extends javax.swing.JFrame {
         // TODO add your handling code here:
         String usrname = jusername.getText();
         String password = jpassword.getText();
+        username = usrname;
 
-        if (usrname.equals("abc") && password.equals("12345")) {
+        int loaiTK = accountDAO.ktTaiKhoan(usrname, password);
+        if (loaiTK == -1) {
+            JOptionPane.showMessageDialog(null, "Username hoặc password không đúng!");
+        } else if (loaiTK == 1) { //Giao vu
             JOptionPane.showMessageDialog(null, "Login successfully");
+            frameGVu = new JFrameGVu();
+            frameGVu.setVisible(true);
 
-            //JFrameGiaoVu frameGiaoVu = new JFrameGiaoVu();
-            //frameGiaoVu.setVisible(true);
-            //this.setVisible(false);
-            //JInternalFrameThemSinhVien t = new JInternalFrameThemSinhVien();
+            this.setVisible(false);
+        } else {//Sinh vien
+
         }
     }//GEN-LAST:event_loginbtnActionPerformed
+
+    private void jusernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jusernameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jusernameActionPerformed
 
     /**
      * @param args the command line arguments

@@ -306,7 +306,7 @@ public class JInternalFrameBangDiem extends javax.swing.JInternalFrame {
             if (diemTong >= 5) {
                 dau = "Đạt";
             }
-            System.out.println(id.getMssv() + " " + id.getMalop());
+
             Diem diemsv = new Diem(id, diemGK, diemCK, diemKhac, diemTong, dau);
 
             //Sửa vào csdl
