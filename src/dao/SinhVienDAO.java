@@ -110,4 +110,25 @@ public class SinhVienDAO {
         }
         return dsLop;
     }
+
+    public static String getHoTenSV(String mssv) {
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        String hoten = null;
+        Transaction transaction = null;
+        try {
+            String hql = "select sv.hoten from Sinhvien as sv where mssv = :mssv";
+            Query query = session.createQuery(hql);
+            query.setParameter("mssv", mssv);
+            List kq = query.list();
+            if (kq.size() == 0) {
+                return null;
+            }
+            hoten = kq.get(0).toString();
+        } catch (HibernateException ex) {
+            System.out.println(ex);
+        } finally {
+            session.close();
+        }
+        return hoten;
+    }
 }

@@ -44,9 +44,10 @@ public class JFrameGVu extends javax.swing.JFrame {
         jMenuItemImportTKB = new javax.swing.JMenuItem();
         jMenuItemLopMonHoc = new javax.swing.JMenuItem();
         jMenuItemBangDiem = new javax.swing.JMenuItem();
+        jMenuItemDSPhucKhao = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItemThemSV = new javax.swing.JMenuItem();
-        jMenu6 = new javax.swing.JMenu();
+        jMenuDoiMatKhau = new javax.swing.JMenu();
         jMenuDangXuat = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -109,6 +110,14 @@ public class JFrameGVu extends javax.swing.JFrame {
         });
         jMenu3.add(jMenuItemBangDiem);
 
+        jMenuItemDSPhucKhao.setText("Danh Sách Phúc Khảo");
+        jMenuItemDSPhucKhao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemDSPhucKhaoActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItemDSPhucKhao);
+
         jMenuBar2.add(jMenu3);
 
         jMenu4.setText("Thêm");
@@ -123,8 +132,13 @@ public class JFrameGVu extends javax.swing.JFrame {
 
         jMenuBar2.add(jMenu4);
 
-        jMenu6.setText("Sửa");
-        jMenuBar2.add(jMenu6);
+        jMenuDoiMatKhau.setText("Đổi Mật Khẩu");
+        jMenuDoiMatKhau.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuDoiMatKhauMouseClicked(evt);
+            }
+        });
+        jMenuBar2.add(jMenuDoiMatKhau);
 
         jMenuDangXuat.setText("Đăng Xuất");
         jMenuDangXuat.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -182,10 +196,23 @@ public class JFrameGVu extends javax.swing.JFrame {
             JFrameMain.frameGVu.dispose();
             JFrameMain frameMain = new JFrameMain();
             frameMain.setVisible(true);
-        } else if (result == 1) {//no
-
         }
     }//GEN-LAST:event_jMenuDangXuatMouseClicked
+
+    private void jMenuItemDSPhucKhaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDSPhucKhaoActionPerformed
+        // TODO add your handling code here:
+        JInternalFramePhucKhao phuckhao = new JInternalFramePhucKhao();
+        phuckhao.setVisible(true);
+        this.jDesktopPane1.add(phuckhao);
+    }//GEN-LAST:event_jMenuItemDSPhucKhaoActionPerformed
+
+    public static JInternalFrameDoiMatKhau MK;
+    private void jMenuDoiMatKhauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuDoiMatKhauMouseClicked
+        // TODO add your handling code here:
+        MK = new JInternalFrameDoiMatKhau();
+        MK.setVisible(true);
+        this.jDesktopPane1.add(MK);
+    }//GEN-LAST:event_jMenuDoiMatKhauMouseClicked
 
     /**
      * @param args the command line arguments
@@ -228,10 +255,11 @@ public class JFrameGVu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenu jMenuDangXuat;
+    private javax.swing.JMenu jMenuDoiMatKhau;
     private javax.swing.JMenuItem jMenuItemBangDiem;
+    private javax.swing.JMenuItem jMenuItemDSPhucKhao;
     private javax.swing.JMenuItem jMenuItemDSlop;
     private javax.swing.JMenuItem jMenuItemImportTKB;
     private javax.swing.JMenuItem jMenuItemLopMonHoc;

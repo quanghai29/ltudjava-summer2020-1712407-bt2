@@ -89,14 +89,17 @@ public class accountDAO {
         if (layThongTinAccount(username) == null) {
             return false;
         }
+        Transaction transaction = null;
         try {
+            transaction = session.beginTransaction();
             String hql = "update Account set password = :newpass where username = :user";
             Query query = session.createQuery(hql);
             query.setParameter("newpass", newpassword);
             query.setParameter("user", username);
             int result = query.executeUpdate();
+            transaction.commit();
         } catch (HibernateException ex) {
-//Log the exception
+            transaction.rollback();
             System.out.println(ex);
         } finally {
             session.close();

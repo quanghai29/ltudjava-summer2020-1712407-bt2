@@ -22,12 +22,12 @@ public class JFrameMain extends javax.swing.JFrame {
     //public static JFrameMain frameMain;
     public static String username;
     public static JFrameGVu frameGVu;
+    public static JFrameSinhVien frameSV;
 
     public JFrameMain() {
         initComponents();
         setSize(400, 350);
         setLocationRelativeTo(null);
-
     }
 
     /**
@@ -121,7 +121,11 @@ public class JFrameMain extends javax.swing.JFrame {
 
             this.setVisible(false);
         } else {//Sinh vien
+            JOptionPane.showMessageDialog(null, "Login successfully");
+            frameSV = new JFrameSinhVien();
+            frameSV.setVisible(true);
 
+            this.setVisible(false);
         }
     }//GEN-LAST:event_loginbtnActionPerformed
 

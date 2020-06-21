@@ -13,6 +13,7 @@ import org.hibernate.Transaction;
 import pojos.LopMonhoc;
 import pojos.LopMonhocId;
 import pojos.Sinhvien;
+import pojos.Thoikhoabieu;
 import util.NewHibernateUtil;
 
 /**
@@ -93,5 +94,31 @@ public class LopMonHocDAO {
             session.close();
         }
         return kq;
+    }
+
+    public static String tenMonofLop(String malop) {
+        String tenmon = null;
+        Session session = NewHibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = null;
+        try {
+            String[] parts = malop.split(" - ");
+            String mamon = parts[1];
+            String hql = "select t.tenmon from Thoikhoabieu as t where t.id.mamon = :mamon";
+            Query query = session.createQuery(hql);
+            query.setParameter("mamon", mamon);
+            List kq = query.list();
+
+            System.out.println(kq.size());
+            if (kq.size() == 0) {
+                return null;
+            }
+
+            tenmon = kq.get(0).toString();
+        } catch (HibernateException ex) {
+            System.out.println(ex);
+        } finally {
+            session.close();
+        }
+        return tenmon;
     }
 }

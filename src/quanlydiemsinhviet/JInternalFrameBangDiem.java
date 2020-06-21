@@ -301,13 +301,16 @@ public class JInternalFrameBangDiem extends javax.swing.JInternalFrame {
             Float diemGK = Float.parseFloat(jTableEdit.getValueAt(0, 1).toString());
             Float diemCK = Float.parseFloat(jTableEdit.getValueAt(0, 2).toString());
             Float diemKhac = Float.parseFloat(jTableEdit.getValueAt(0, 3).toString());
-            Float diemTong = Float.parseFloat(jTableEdit.getValueAt(0, 4).toString());
+            float diemTong = 0;
             String dau = null;
+
+            Diem diemsv = new Diem(id, diemGK, diemCK, diemKhac, diemTong, dau);
+            diemTong = DiemDAO.tinhDiemTong(diemsv);
+            jTableEdit.setValueAt(diemTong, 0, 4);
+
             if (diemTong >= 5) {
                 dau = "Đạt";
             }
-
-            Diem diemsv = new Diem(id, diemGK, diemCK, diemKhac, diemTong, dau);
 
             //Sửa vào csdl
             if (DiemDAO.capNhatDiemSV(diemsv)) {
