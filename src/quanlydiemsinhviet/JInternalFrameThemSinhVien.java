@@ -9,6 +9,7 @@ import dao.SinhVienDAO;
 import java.util.List;
 import javax.swing.JOptionPane;
 import pojos.*;
+import dao.accountDAO;
 
 /**
  *
@@ -166,6 +167,8 @@ public class JInternalFrameThemSinhVien extends javax.swing.JInternalFrame {
         boolean kq = SinhVienDAO.themSinhVien(sv);
         if (kq) {
             JOptionPane.showMessageDialog(null, "Thêm Thành Công");
+            Account newAccount = new Account(sv.getMssv(), sv.getMssv(), 2);
+            dao.accountDAO.themAccount(newAccount);
         } else {
             JOptionPane.showMessageDialog(null, "Thêm thất bại");
         }

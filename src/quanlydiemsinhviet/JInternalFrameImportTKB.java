@@ -27,6 +27,7 @@ public class JInternalFrameImportTKB extends javax.swing.JInternalFrame {
      * Creates new form JInternalFrameImportTKB
      */
     private List<Thoikhoabieu> tkb;
+    private List<String> dsLopTKB;
 
     public JInternalFrameImportTKB() {
         initComponents();
@@ -187,6 +188,12 @@ public class JInternalFrameImportTKB extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Lịch đã tồn tại");
         } else {
             ThoikhoabieuDAO.themListTKB(tkb);
+            String loptkb = jLabelLop.getText();
+            if (!dsLopTKB.contains(loptkb)) {
+                jComboBoxTKB.addItem(loptkb);
+                dsLopTKB.add(loptkb);
+            }
+
             JOptionPane.showMessageDialog(null, "Nhập Thời Khóa biểu thành công");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -237,7 +244,7 @@ public class JInternalFrameImportTKB extends javax.swing.JInternalFrame {
     }
 
     private void loadDsTKB() {
-        List<String> dsLopTKB = ThoikhoabieuDAO.dsLopTKB();
+        dsLopTKB = ThoikhoabieuDAO.dsLopTKB();
         dsLopTKB.add(0, "");
         jComboBoxTKB.setModel(new javax.swing.DefaultComboBoxModel<>(dsLopTKB.toArray(new String[0])));
     }

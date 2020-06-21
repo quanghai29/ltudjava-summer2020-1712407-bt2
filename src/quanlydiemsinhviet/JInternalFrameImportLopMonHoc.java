@@ -25,6 +25,7 @@ public class JInternalFrameImportLopMonHoc extends javax.swing.JInternalFrame {
      * Creates new form JInternalFrameImportLopMonHoc
      */
     private List<LopMonhoc> dsLOPmonHoc;
+    private List<String> dsLopMon;
 
     public JInternalFrameImportLopMonHoc() {
         initComponents();
@@ -161,6 +162,12 @@ public class JInternalFrameImportLopMonHoc extends javax.swing.JInternalFrame {
         String lopmon = jComboBoxdsLopMon.getSelectedItem().toString();
         if (lopmon == "") {
             LopMonHocDAO.themNhieuSVLop(dsLOPmonHoc);
+            String lop = jLabelLop.getText();
+            if (!dsLopMon.contains(lop)) {
+                jComboBoxdsLopMon.addItem(lop);
+                dsLopMon.add(lop);
+            }
+
             JOptionPane.showMessageDialog(null, "Import Thành Công");
         } else {
             JOptionPane.showMessageDialog(null, "Danh Sách Đã Tồn Tại");

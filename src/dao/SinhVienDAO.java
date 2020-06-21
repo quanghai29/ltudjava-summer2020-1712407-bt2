@@ -40,8 +40,9 @@ public class SinhVienDAO {
         Session session = NewHibernateUtil.getSessionFactory()
                 .openSession();
         try {
-            String hql = "select sv from Sinhvien sv where lop = sv.lop";
+            String hql = "select sv from Sinhvien as sv where lop = :lop";
             Query query = session.createQuery(hql);
+            query.setParameter("lop", lop);
             ds = query.list();
         } catch (HibernateException ex) {
             System.out.println(ex);

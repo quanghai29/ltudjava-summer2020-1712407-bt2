@@ -65,7 +65,7 @@ public class ThoikhoabieuDAO {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         try {
-            String hql = "select distinct t.id.lop from Thoikhoabieu t";
+            String hql = "select distinct t.id.lop from Thoikhoabieu as t";
             Query query = session.createQuery(hql);
             dsLop = query.list();
 

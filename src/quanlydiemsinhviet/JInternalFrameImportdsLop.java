@@ -33,6 +33,7 @@ public class JInternalFrameImportdsLop extends javax.swing.JInternalFrame {
      * Creates new form JInternalFrameImportdsLop
      */
     private List<Sinhvien> dsSV;
+    private List<String> dsLop;
 
     public JInternalFrameImportdsLop() {
         initComponents();
@@ -164,6 +165,11 @@ public class JInternalFrameImportdsLop extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Danh sách đã tồn tại");
         } else {
             SinhVienDAO.themNhieuSinhVien(dsSV);
+            if (!dsLop.contains(jlabelLop.getText())) {
+                dsLop.add(jlabelLop.getText());
+                jComboBoxdsLop.addItem(jlabelLop.getText());
+            }
+
             JOptionPane.showMessageDialog(null, "Import Danh Sách Thành Công");
         }
     }//GEN-LAST:event_jButtonImportDsLopActionPerformed
@@ -176,6 +182,7 @@ public class JInternalFrameImportdsLop extends javax.swing.JInternalFrame {
             jlabelLop.setText("");
             model.setRowCount(0);
         } else {
+            System.out.println(lop);
             List<Sinhvien> kq;
             kq = SinhVienDAO.layDanhSachSinhVienTheoLop(lop);
             loadDataTable(kq);
@@ -204,7 +211,7 @@ public class JInternalFrameImportdsLop extends javax.swing.JInternalFrame {
     }
 
     private void loadDSLop() {
-        List<String> dsLop = SinhVienDAO.getLop();
+        dsLop = SinhVienDAO.getLop();
         dsLop.add(0, "");
         jComboBoxdsLop.setModel(new javax.swing.DefaultComboBoxModel<>(dsLop.toArray(new String[0])));
     }

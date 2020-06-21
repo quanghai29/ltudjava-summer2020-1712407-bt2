@@ -31,8 +31,7 @@ public class JInternalFrameSVXemDiem extends javax.swing.JInternalFrame {
     public JInternalFrameSVXemDiem() {
         initComponents();
         setLocation(150, 25);
-        //username = JFrameMain.username;
-        username = "1742005";
+        username = JFrameMain.username;
         hoten = SinhVienDAO.getHoTenSV(username);
         loadDataTable();
         loadPhucKhao();
